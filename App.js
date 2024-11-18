@@ -34,19 +34,22 @@ const [page,setPage] = useState("");
           [
           {
               name:'Sam',
-              view:<Page1/>
+              view:<Page1/>,
+              img:require('./assets/icon.png')
           },
           {
               name:'Best',
-              view:<Page2/>
+              view:<Page2/>,
+             img:require('./assets/icon.png')
           }
           
           ]
       }
       style={{width:'100%',
-        height:'20%',
+        height:'10%',
         flexDirection:'row',
         justifyContent:'space-around',
+        alignItems:'center',
         backgroundColor:'orange'}}
       />
       

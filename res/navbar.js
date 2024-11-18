@@ -1,27 +1,34 @@
 import {useState} from 'react';
-import {StyleSheet,Pressable, View, Text,Dimensions} from 'react-native'
+import {StyleSheet,Pressable, View, Text,Dimensions,Image} from 'react-native'
 const {width,height} = Dimensions.get('window');
-const tabLenght = 0;
-export function NavBar({tabs,active="",style,action = null}){
+var tabLenght = 0;
+export function NavBar({tabs,active="",style,action = null,activeBackground = 'green',activeForground='yellow'}){
+    tabLenght = tabs.length;
 const [main,setMain] = useState(active);
     function setActive(tab){
         setMain(tab.name)
         if(typeof action == "function"){ action(tab)
         }
     }
+    var ew = (width/tabLenght) - 10
     return (
     <View style={style}>
 {
     tabs.map((tab,i)=>(
       <Pressable
         onPress={()=>setActive(tab)}
-        style={sty.tab}
+        style={[sty.tab,{width:ew}]}
         key={i}
         >
+        
            <View
-        style={[sty.active,{backgroundColor:tab.name == main?'green':''}]}
+        style={[sty.active,{backgroundColor:tab.name == main?activeBackground:''}]}
            >
-             <Text>{tab.name}</Text>
+             <Image 
+             source={tab.img}
+             style={{width:'100%',height:'80%',resizeMode:'contain'}}
+             />
+             <Text style={{height:'20%',fontSize:8,textAlign:'center',color:tab.name == main?activeForground:style?.color}}>{tab.name}</Text>
            </View>
         </Pressable>
         
@@ -29,15 +36,20 @@ const [main,setMain] = useState(active);
 }
     </View>
         );
+        
+        
 }
+
 
 const sty = StyleSheet.create({
     active:{
-        width:'100%',
-        height:'100%'
+        width:'100%',//
+        
+        height:'100%',
+       // justifyContent:'space-between' 
     },
     tab:{
-        width:(width/tabLenght) - (tabLenght*2),
-        height:height*0.90
+        height:'80%',
+        backgroundColor:'pink'
     }
 });
